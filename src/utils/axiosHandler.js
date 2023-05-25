@@ -3,7 +3,7 @@ import qs from 'qs';
 
 const axiosInstance = axios.create({
 	baseURL: process.env.REACT_APP_API_SERVER,
-	paramsSerializer: (params) => qs.stringify(params)
+	paramsSerializer: (params) => qs.stringify(params),
 });
 
 // export const setAuthHeader = str => {
@@ -13,17 +13,15 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(config) => {
-		console.log('config', config);
 		return config;
 	},
 	(err) => {
+		// eslint-disable-next-line no-undef
 		return Promise.reject(err);
-	}
-);
-
-axiosInstance.interceptors.response.use(
-	({ data: response }) => {
-		return response;
 	},
 );
+
+axiosInstance.interceptors.response.use(({data: response}) => {
+	return response;
+});
 export default axiosInstance;

@@ -1,16 +1,9 @@
-
 // icons
-// const icons = {
-// 	FontSizeOutlined,
-// 	BgColorsOutlined,
-// 	BarcodeOutlined,
-// 	AntDesignOutlined,
-// 	LoadingOutlined,
-// 	AppstoreAddOutlined,
-// 	ScheduleOutlined,
-// 	EyeOutlined,
-// 	LocalLibraryRoundedIcon
-// };
+import {CommentOutlined} from '@ant-design/icons';
+
+const icons = {
+	CommentOutlined,
+};
 
 // ==============================|| MENU ITEMS - UTILITIES ||============================== //
 
@@ -19,28 +12,21 @@ const main = {
 	title: '게시판',
 	type: 'group',
 	children: [
-		// {
-		// 	id: 'book-main',
-		// 	title: '도서 관리자',
-		// 	authority: ADMIN_TYPE,
-		// 	type: 'collapse',
-		// 	icon: icons.LocalLibraryRoundedIcon,
-		// 	children: [
-		// 		{
-		// 			id: 'book',
-		// 			title: '도서 관리',
-		// 			type: 'item',
-		// 			url: '/book-admin/book'
-		// 		},
-		// 		{
-		// 			id: 'category',
-		// 			title: '카테고리 관리',
-		// 			type: 'item',
-		// 			url: '/book-admin/category'
-		// 		}
-		// 	]
-		// }
-	]
+		{
+			id: 'board',
+			title: '게시판',
+			type: 'collapse',
+			icon: icons.CommentOutlined,
+			children: [
+				{
+					id: 'book',
+					title: '일반게시판',
+					type: 'item',
+					url: '/board',
+				},
+			],
+		},
+	],
 };
 
 export default main;
