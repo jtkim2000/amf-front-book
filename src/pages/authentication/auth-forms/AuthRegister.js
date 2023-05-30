@@ -53,7 +53,6 @@ const AuthRegister = () => {
 	};
 
 	useEffect(async () => {
-		console.log('url:', process.env.REACT_APP_MEMBER_API_SERVER);
 		changePassword('');
 	}, []);
 

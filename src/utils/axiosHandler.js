@@ -13,10 +13,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(config) => {
-		console.log('config', config);
 		return config;
 	},
 	(err) => {
+		// eslint-disable-next-line no-undef
 		return Promise.reject(err);
 	}
 );
