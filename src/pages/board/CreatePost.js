@@ -13,10 +13,13 @@ import {Formik} from 'formik';
 import {createPost} from '../../api/board';
 import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
+import {useSelector} from "react-redux";
 
 const CreatePost = () => {
 	const {enqueueSnackbar} = useSnackbar();
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.user);
+	const { id, name } = user;
 
 	const goBackList = () => {
 		navigate(`/board`);
@@ -29,8 +32,8 @@ const CreatePost = () => {
 					title: '',
 					content: '',
 					author: {
-						authorId: '1',
-						authorName: 'test',
+						authorId: id,
+						authorName: name,
 					},
 					submit: null,
 				}}
