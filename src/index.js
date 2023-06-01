@@ -8,6 +8,8 @@ import 'simplebar/src/simplebar.css';
 
 // third-party
 import { Provider as ReduxProvider } from 'react-redux';
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 // apex-chart
 import 'assets/third-party/apex-chart.css';
@@ -18,13 +20,16 @@ import { store } from 'store';
 import reportWebVitals from './reportWebVitals';
 
 // ==============================|| MAIN - REACT DOM RENDER  ||============================== //
+const persistor = persistStore(store);
 
 ReactDOM.render(
 	<StrictMode>
 		<ReduxProvider store={store}>
-			<BrowserRouter>
-					<App />
-			</BrowserRouter>
+			<PersistGate loading={null} persistor={persistor}>
+				<BrowserRouter>
+						<App />
+				</BrowserRouter>
+			</PersistGate>
 		</ReduxProvider>
 	</StrictMode>,
 	document.getElementById('root')
