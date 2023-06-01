@@ -27,11 +27,14 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 //============ test ============
 
 import { login  } from 'api/authentication';
+import {useDispatch} from "react-redux";
+import {login as successLogin} from 'store/reducers/user'
 
 const AuthLogin = () => {
 	const { enqueueSnackbar } = useSnackbar();
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = React.useState(false);
+	const dispatch = useDispatch();
 
 	const handleClickShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -43,11 +46,17 @@ const AuthLogin = () => {
 
 	const memberLogin = async (values) => {
 		const result = await login(values);
-		if(!result){
+		if(!result.login){
 			enqueueSnackbar('로그인에 실패하였습니다.', { variant: 'error' });
 			return;
 		}
 		enqueueSnackbar('로그인에 성공하였습니다.', { variant: 'success' });
+
+		dispatch(successLogin({
+			id: result.id,
+			name: result.name,
+			email: result.email
+		}));
 		navigate('/');
 	};
 
@@ -71,7 +80,7 @@ const AuthLogin = () => {
 					try {
 						setStatus({ success: false });
 						setSubmitting(true);
-						accessSuccess(values);
+						await accessSuccess(values);
 					} catch (err) {
 						setStatus({ success: false });
 						setErrors({ submit: err.message });

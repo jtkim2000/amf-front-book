@@ -6,11 +6,6 @@ const axiosInstance = axios.create({
 	paramsSerializer: (params) => qs.stringify(params)
 });
 
-// export const setAuthHeader = str => {
-//   console.log("setAuthHeader",str);
-//   axiosInstance.defaults.headers.common.Authorization = str;
-// };
-
 axiosInstance.interceptors.request.use(
 	(config) => {
 		return config;
@@ -27,3 +22,4 @@ axiosInstance.interceptors.response.use(
 	},
 );
 export default axiosInstance;
+

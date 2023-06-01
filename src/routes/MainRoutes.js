@@ -14,19 +14,11 @@ const MainRoutes = {
 	element: <MainLayout />,
 	children: [
 		{
-			path: '/',
+			path: '',
 			element: <DefaultPage />
 		},
-		// {
-		//     path: 'dashboard',
-		//     children: [
-		//         {
-		//             path: 'default',
-		//             element: <DashboardDefault />
-		//         }
-		//     ]
-		// },
 	]
 };
 
 export default MainRoutes;
+

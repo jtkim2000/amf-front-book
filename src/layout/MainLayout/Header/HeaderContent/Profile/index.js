@@ -14,6 +14,8 @@ import Transitions from 'components/@extended/Transitions';
 import { LogoutOutlined } from '@ant-design/icons';
 import ProfileTab from './ProfileTab';
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "store/reducers/user";
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -43,8 +45,14 @@ const Profile = () => {
 	const theme = useTheme();
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const user = useSelector((state) => state.user);
+	const { email, name } = user;
 
 	const handleLogout = async () => {
+		dispatch(logout());
+
 		navigate('/auth/login');
 	};
 
@@ -90,7 +98,7 @@ const Profile = () => {
 				onClick={handleToggle}
 			>
 				<Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-					<Typography variant="subtitle1">{'이름'}</Typography>
+					<Typography variant="subtitle1">{name}</Typography>
 				</Stack>
 			</ButtonBase>
 			<Popper
@@ -132,9 +140,9 @@ const Profile = () => {
 												<Grid item>
 													<Stack direction="row" spacing={1.25} alignItems="center">
 														<Stack>
-															<Typography variant="h6">{'이름'}</Typography>
+															<Typography variant="h6">{name}</Typography>
 															<Typography variant="body2" color="textSecondary">
-																{'이메일'}
+																{email}
 															</Typography>
 														</Stack>
 													</Stack>

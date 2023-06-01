@@ -60,7 +60,7 @@ const AuthRegister = () => {
 		<>
 			<Formik
 				initialValues={{
-					username: '',
+					name: '',
 					nickname: '',
 					email: '',
 					password: '',
@@ -68,7 +68,7 @@ const AuthRegister = () => {
 					submit: null
 				}}
 				validationSchema={Yup.object().shape({
-					username: Yup.string().max(10).required('이름은 필수입니다.'),
+					name: Yup.string().max(10).required('이름은 필수입니다.'),
 					nickname: Yup.string().max(10).required('닉네임은 필수입니다.'),
 					email: Yup.string().email('이메일 형식으로 입력해주세요.').max(255).required('이메일은 필수입니다.'),
 					password: Yup.string().min(8, '비밀번호는 최소 8자리이상 필요합니다.').max(255).required('비밀번호는 필수입니다.'),
@@ -77,19 +77,26 @@ const AuthRegister = () => {
 						.oneOf([Yup.ref('password')], '비밀번호가 일치하지 않습니다.')
 				})}
 				onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-					const response = await createMember(values);
-					if (response == false ) {
-						enqueueSnackbar(response.message, { variant: 'error' });
+					try {
+						const response = await createMember(values);
+
+						if(response == -1){
+							enqueueSnackbar('중복된 이메일입니다.', { variant: 'error' });
+							setStatus({ success: false });
+							setErrors({ submit: '회원가입 실패' });
+							return;
+						}
+
 						setStatus({ success: false });
-						setErrors({ submit: response.message });
-						return;
+						setSubmitting(false);
+
+						enqueueSnackbar('회원가입에 성공하였습니다.', { variant: 'success' });
+						navigate('/auth/login');
+					} catch (err) {
+						setStatus({ success: false });
+						setErrors({ submit: err.message });
+						setSubmitting(false);
 					}
-
-					setStatus({ success: false });
-					setSubmitting(false);
-
-					enqueueSnackbar('회원가입에 성공하였습니다.', { variant: 'success' });
-					navigate('/auth/login');
 				}}
 			>
 				{({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -97,22 +104,22 @@ const AuthRegister = () => {
 						<Grid container spacing={3}>
 							<Grid item xs={24} md={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="username-signup"> 이름 *</InputLabel>
+									<InputLabel htmlFor="name-signup"> 이름 *</InputLabel>
 									<OutlinedInput
 										fullWidth
-										error={Boolean(touched.username && errors.username)}
-										id="username-signup"
-										type="username"
-										value={values.username}
-										name="username"
+										error={Boolean(touched.name && errors.name)}
+										id="name-signup"
+										type="text"
+										value={values.name}
+										name="name"
 										onBlur={handleBlur}
 										onChange={handleChange}
 										placeholder="이름을 입력하세요"
 										inputProps={{}}
 									/>
-									{touched.username && errors.username && (
+									{touched.name && errors.name && (
 										<FormHelperText error id="helper-text-name-signup">
-											{errors.username}
+											{errors.name}
 										</FormHelperText>
 									)}
 								</Stack>
@@ -124,7 +131,7 @@ const AuthRegister = () => {
 										fullWidth
 										error={Boolean(touched.nickname && errors.nickname)}
 										id="nickname-login"
-										type="nickname"
+										type="text"
 										value={values.nickname}
 										name="nickname"
 										onBlur={handleBlur}
