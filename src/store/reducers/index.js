@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 
 // project import
 import menu from './menu';
-import user from './user'
+import user from './user';
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 const persistConfig = {
