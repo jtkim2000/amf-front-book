@@ -45,7 +45,7 @@ const Post = () => {
 	};
 
 	const updatePost = async () => {
-		navigate(`/post/${id}/update`, {
+		navigate(`/post/update`, {
 			state: {
 				title: post.title,
 				content: post.content,
@@ -112,7 +112,6 @@ const Post = () => {
 									minRows={5}
 									aria-label='maximum height'
 									placeholder='내용'
-									style={customStyle}
 								>
 									{post.content}
 								</Typography>
@@ -133,11 +132,3 @@ const Post = () => {
 };
 
 export default Post;
-
-const customStyle = {
-	padding: '10.5px 14px 10.5px 12px',
-	font: 'inherit',
-	fontSize: '15px',
-	borderRadius: '4px',
-	borderColor: '#d9d9d9',
-};

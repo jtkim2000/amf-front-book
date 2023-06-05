@@ -8,7 +8,6 @@ import {
 	TextareaAutosize,
 	TextField,
 } from '@mui/material';
-import AnimateButton from '../../components/@extended/AnimateButton';
 import {Formik} from 'formik';
 import {createPost} from '../../api/board';
 import {useNavigate} from 'react-router-dom';
@@ -56,14 +55,14 @@ const CreatePost = () => {
 				}}
 			>
 				{({
-					errors,
-					handleBlur,
-					handleChange,
-					handleSubmit,
-					isSubmitting,
-					touched,
-					values,
-				}) => (
+					  errors,
+					  handleBlur,
+					  handleChange,
+					  handleSubmit,
+					  isSubmitting,
+					  touched,
+					  values,
+				  }) => (
 					<form noValidate onSubmit={handleSubmit}>
 						<Grid container spacing={3}>
 							<Grid item xs={24} md={12}>
@@ -78,7 +77,6 @@ const CreatePost = () => {
 										name='title'
 										onChange={handleChange}
 										placeholder='제목을 입력하세요'
-										inputProps={{}}
 										style={{backgroundColor: 'white'}}
 									/>
 									{touched.title && errors.title && (
@@ -122,18 +120,16 @@ const CreatePost = () => {
 								spacing={2}
 							>
 								<Grid item>
-									<AnimateButton>
-										<Button
-											disableElevation
-											disabled={isSubmitting}
-											size='large'
-											type='submit'
-											variant='contained'
-											color='primary'
-										>
-											등록
-										</Button>
-									</AnimateButton>
+									<Button
+										disableElevation
+										disabled={isSubmitting}
+										size='large'
+										type='submit'
+										variant='contained'
+										color='primary'
+									>
+										등록
+									</Button>
 								</Grid>
 								<Grid item>
 									<Button

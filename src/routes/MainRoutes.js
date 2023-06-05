@@ -35,11 +35,10 @@ const MainRoutes = {
 			element: <CreatePost />,
 		},
 		{
-			path: 'post/:id/update',
+			path: 'post/update',
 			element: <UpdatePost />,
 		},
 	]
 };
 
 export default MainRoutes;
-
