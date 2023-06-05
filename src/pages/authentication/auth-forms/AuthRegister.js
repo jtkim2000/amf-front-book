@@ -22,7 +22,6 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import AnimateButton from 'components/@extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
 // assets
@@ -102,9 +101,9 @@ const AuthRegister = () => {
 				{({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
 					<form noValidate onSubmit={handleSubmit}>
 						<Grid container spacing={3}>
-							<Grid item xs={24} md={12}>
+							<Grid item xs={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="name-signup"> 이름 *</InputLabel>
+									<InputLabel htmlFor="name-signup" required> 이름</InputLabel>
 									<OutlinedInput
 										fullWidth
 										error={Boolean(touched.name && errors.name)}
@@ -126,7 +125,7 @@ const AuthRegister = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="nickname-signup">닉네임 *</InputLabel>
+									<InputLabel htmlFor="nickname-signup" required>닉네임</InputLabel>
 									<OutlinedInput
 										fullWidth
 										error={Boolean(touched.nickname && errors.nickname)}
@@ -148,7 +147,7 @@ const AuthRegister = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="email-signup">이메일 *</InputLabel>
+									<InputLabel htmlFor="email-signup" required>이메일</InputLabel>
 									<OutlinedInput
 										fullWidth
 										error={Boolean(touched.email && errors.email)}
@@ -170,7 +169,7 @@ const AuthRegister = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="password-signup">비밀번호 *</InputLabel>
+									<InputLabel htmlFor="password-signup" required>비밀번호</InputLabel>
 									<OutlinedInput
 										fullWidth
 										error={Boolean(touched.password && errors.password)}
@@ -179,6 +178,7 @@ const AuthRegister = () => {
 										value={values.password}
 										name="password"
 										onBlur={handleBlur}
+										autoComplete={"off"}
 										onChange={(e) => {
 											handleChange(e);
 											changePassword(e.target.value);
@@ -220,7 +220,7 @@ const AuthRegister = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<Stack spacing={1}>
-									<InputLabel htmlFor="password-check-signup">비밀번호 확인 *</InputLabel>
+									<InputLabel htmlFor="password-check-signup" required>비밀번호 확인</InputLabel>
 									<OutlinedInput
 										fullWidth
 										error={Boolean(touched.passwordCheck && errors.passwordCheck)}
@@ -231,6 +231,7 @@ const AuthRegister = () => {
 										name="passwordCheck"
 										onBlur={handleBlur}
 										onChange={handleChange}
+										autoComplete={"off"}
 										endAdornment={
 											<InputAdornment position="end">
 												<IconButton
@@ -260,19 +261,17 @@ const AuthRegister = () => {
 								</Grid>
 							)}
 							<Grid item xs={12}>
-								<AnimateButton>
-									<Button
-										disableElevation
-										disabled={isSubmitting}
-										fullWidth
-										size="large"
-										type="submit"
-										variant="contained"
-										color="primary"
-									>
-										가입
-									</Button>
-								</AnimateButton>
+								<Button
+									disableElevation
+									disabled={isSubmitting}
+									fullWidth
+									size="large"
+									type="submit"
+									variant="contained"
+									color="primary"
+								>
+									가입
+								</Button>
 							</Grid>
 						</Grid>
 					</form>

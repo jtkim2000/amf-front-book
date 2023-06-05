@@ -19,7 +19,6 @@ import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 
 // project import패
-import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -153,19 +152,17 @@ const AuthLogin = () => {
 								</Grid>
 							)}
 							<Grid item xs={12}>
-								<AnimateButton>
-									<Button
-										disableElevation
-										disabled={isSubmitting}
-										fullWidth
-										size="large"
-										type="submit"
-										variant="contained"
-										color="primary"
-									>
-										로그인
-									</Button>
-								</AnimateButton>
+								<Button
+									disableElevation
+									disabled={isSubmitting}
+									fullWidth
+									size="large"
+									type="submit"
+									variant="contained"
+									color="primary"
+								>
+									로그인
+								</Button>
 							</Grid>
 						</Grid>
 					</form>
