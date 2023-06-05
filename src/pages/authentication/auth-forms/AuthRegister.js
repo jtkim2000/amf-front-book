@@ -79,7 +79,7 @@ const AuthRegister = () => {
 					try {
 						const response = await createMember(values);
 
-						if(response == -1){
+						if(response === -1){
 							enqueueSnackbar('중복된 이메일입니다.', { variant: 'error' });
 							setStatus({ success: false });
 							setErrors({ submit: '회원가입 실패' });
@@ -114,7 +114,6 @@ const AuthRegister = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										placeholder="이름을 입력하세요"
-										inputProps={{}}
 									/>
 									{touched.name && errors.name && (
 										<FormHelperText error id="helper-text-name-signup">
@@ -136,7 +135,6 @@ const AuthRegister = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										placeholder="닉네임을 입력하세요."
-										inputProps={{}}
 									/>
 									{touched.nickname && errors.nickname && (
 										<FormHelperText error id="helper-text-nickname-signup">
@@ -158,7 +156,6 @@ const AuthRegister = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										placeholder="이메일을 입력하세요."
-										inputProps={{}}
 									/>
 									{touched.email && errors.email && (
 										<FormHelperText error id="helper-text-email-signup">
@@ -197,7 +194,6 @@ const AuthRegister = () => {
 											</InputAdornment>
 										}
 										placeholder="8자 이상의 비밀번호를 입력하세요."
-										inputProps={{}}
 									/>
 									{touched.password && errors.password && (
 										<FormHelperText error id="helper-text-password-signup">
@@ -246,7 +242,6 @@ const AuthRegister = () => {
 											</InputAdornment>
 										}
 										placeholder="비밀번호를 확인해주세요."
-										inputProps={{}}
 									/>
 									{touched.passwordCheck && errors.passwordCheck && (
 										<FormHelperText error id="helper-text-password-check-signup">
