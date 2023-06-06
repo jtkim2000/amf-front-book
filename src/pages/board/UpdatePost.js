@@ -10,17 +10,17 @@ import {
 	TextareaAutosize,
 	TextField,
 } from '@mui/material';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
 import {useLocation} from 'react-router';
 
 const UpdatePost = () => {
-	const {id} = useParams();
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const title = location.state? location.state.title : '';
-	const content = location.state? location.state.content : '';
+	const id = location.state ? location.state.id : '';
+	const title = location.state ? location.state.title : '';
+	const content = location.state ? location.state.content : '';
 
 	const {enqueueSnackbar} = useSnackbar();
 
@@ -30,7 +30,7 @@ const UpdatePost = () => {
 
 	return (
 		<>
-			{title &&
+			{title && (
 				<Formik
 					initialValues={{
 						title: title,
@@ -38,7 +38,9 @@ const UpdatePost = () => {
 						submit: null,
 					}}
 					validationSchema={Yup.object().shape({
-						title: Yup.string().max(255).required('제목은 필수입니다.'),
+						title: Yup.string()
+							.max(255)
+							.required('제목은 필수입니다.'),
 					})}
 					onSubmit={async (values, {setStatus, setSubmitting}) => {
 						setStatus({success: false});
@@ -56,14 +58,14 @@ const UpdatePost = () => {
 					}}
 				>
 					{({
-						  errors,
-						  handleBlur,
-						  handleChange,
-						  handleSubmit,
-						  isSubmitting,
-						  touched,
-						  values,
-					  }) => (
+						errors,
+						handleBlur,
+						handleChange,
+						handleSubmit,
+						isSubmitting,
+						touched,
+						values,
+					}) => (
 						<form noValidate onSubmit={handleSubmit}>
 							<Grid container spacing={3}>
 								<Grid item xs={24} md={12}>
@@ -148,7 +150,7 @@ const UpdatePost = () => {
 						</form>
 					)}
 				</Formik>
-			}
+			)}
 		</>
 	);
 };

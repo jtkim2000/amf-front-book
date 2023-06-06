@@ -47,6 +47,7 @@ const Post = () => {
 	const updatePost = async () => {
 		navigate(`/post/update`, {
 			state: {
+				id: id,
 				title: post.title,
 				content: post.content,
 			},

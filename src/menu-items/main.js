@@ -9,7 +9,7 @@ const icons = {
 
 const main = {
 	id: 'main-menu',
-	title: '게시판',
+	title: '메인메뉴',
 	type: 'group',
 	children: [
 		{
