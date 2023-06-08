@@ -75,24 +75,23 @@ const AuthRegister = () => {
 						.required('비밀번호 확인은 필수입니다.')
 						.oneOf([Yup.ref('password')], '비밀번호가 일치하지 않습니다.')
 				})}
-				onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+				onSubmit={async (values, { setErrors, setSubmitting }) => {
 					try {
+						setSubmitting(true);
+
 						const response = await createMember(values);
 
 						if(response === -1){
 							enqueueSnackbar('중복된 이메일입니다.', { variant: 'error' });
-							setStatus({ success: false });
 							setErrors({ submit: '회원가입 실패' });
 							return;
 						}
 
-						setStatus({ success: false });
 						setSubmitting(false);
 
 						enqueueSnackbar('회원가입에 성공하였습니다.', { variant: 'success' });
 						navigate('/auth/login');
 					} catch (err) {
-						setStatus({ success: false });
 						setErrors({ submit: err.message });
 						setSubmitting(false);
 					}

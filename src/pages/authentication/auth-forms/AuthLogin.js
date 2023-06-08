@@ -75,13 +75,11 @@ const AuthLogin = () => {
 					email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
 					password: Yup.string().max(255).required('Password is required')
 				})}
-				onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+				onSubmit={async (values, { setErrors, setSubmitting }) => {
 					try {
-						setStatus({ success: false });
 						setSubmitting(true);
 						await accessSuccess(values);
 					} catch (err) {
-						setStatus({ success: false });
 						setErrors({ submit: err.message });
 						setSubmitting(false);
 					}
