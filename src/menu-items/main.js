@@ -13,18 +13,18 @@ const main = {
 	type: 'group',
 	children: [
 		{
-			id: 'board',
-			title: '게시판',
-			type: 'collapse',
-			icon: icons.CommentOutlined,
-			children: [
-				{
-					id: 'book',
-					title: '일반게시판',
-					type: 'item',
-					url: '/board',
-				},
-			],
+			// id: '메뉴 id',
+			// title: '메뉴 제목',
+			// type: 'collapse',
+			// icon: 아이콘,
+			// children: [
+			// 	{
+			// 		id: '메뉴 id',
+			// 		title: '메뉴 제목',
+			// 		type: 'item',
+			// 		url: '메뉴랑 매핑할 url',
+			// 	},
+			// ],
 		},
 	],
 };
