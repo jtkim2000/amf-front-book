@@ -18,39 +18,56 @@ import {LoadingButton} from '@mui/lab';
 import {useSnackbar} from 'notistack';
 
 const Post = () => {
-	const navigate = useNavigate();
+
+	// [api 연결] useSnackbar에서 enqueueSnackbar 가져오기
 	const {enqueueSnackbar} = useSnackbar();
 
+	// [이벤트 매핑] useNavigate에서 navigate 가져오기
+	const navigate = useNavigate();
+	// [api 연결] Todo useSnackbar에서 enqueueSnackbar 가져오기
+	// 작성해주세요.
+
+	//url에서 param 가져오기
 	const {id} = useParams();
 
+	// [api 연결] Todo post(기본값 : null), isDeleteLoading(기본값 : false)을 컴포넌트 State로 선언(useState)
+	// 작성해주세요.
 	const [post, setPost] = useState(null);
-	const [deleteLoading, setDeleteLoading] = useState(false);
+	// isDeleteLoading을 state로 선언해주세요.
 
 	useEffect(async () => {
-		const result = await getPost({id});
-		setPost(result);
+		// [api 연결] Todo 게시글 상세 api 호출 후 결과 받기
+		// 작성해주세요.
+		// [api 연결] Todo post에 api 호출 결과값 매핑
+		// 작성해주세요.
+
 	}, [id]);
 
 	const goBackList = () => {
-		navigate(`/board`);
+		// [이벤트 매핑] Todo 게시판 페이지로 이동
 	};
 
 	const deleteClick = async () => {
 		try{
-			setDeleteLoading(true);
-			await deletePost({id});
-			enqueueSnackbar('게시글이 삭제되었습니다.', {variant: 'success'});
-			setDeleteLoading(false);
+			// [api 연결] Todo 중복 api 호출 방지를 위해 isDeleteLoading 상태 true로 변경
 
-			goBackList();
+			// [api 연결] Todo 게시글 삭제 api 호출
+
+			enqueueSnackbar('게시글이 삭제되었습니다.', {variant: 'success'});
+
+			// [api 연결] Todo 중복 api 호출 후 delete 버튼 활성화를 위해 isDeleteLoading false로 변경
+
+			// [이벤트 매핑] Todo 게시판 페이지로 이동
+			// 작성해주세요.
 		}catch(err){
 			enqueueSnackbar(err, {variant: 'error'});
-			setDeleteLoading(false);
+			// [api 연결] Todo 중복 api 호출 후 delete 버튼 활성화를 위해 isDeleteLoading false로 변경
 		}
 
 	};
 
 	const updatePost = async () => {
+		// [이벤트 매핑] 게시글 수정 페이지로 이동. 상태 값을 같이 전달
 		navigate(`/post/update`, {
 			state: {
 				id: id,
@@ -65,7 +82,11 @@ const Post = () => {
 			<Stack container direction='row' spacing={2}>
 				<Grid container>
 					<Grid item>
-						<Button variant='contained' onClick={goBackList}>
+						<Button
+							variant='contained'
+							// [이벤트 매핑] Todo 목록 버튼을 클릭하면 게시글 목록페이지 페이지로 이동해야 합니다.
+							// onClick={매핑해주세요.}
+						>
 							목록
 						</Button>
 					</Grid>
@@ -74,7 +95,8 @@ const Post = () => {
 					<Grid item>
 						<Button
 							variant='outlined'
-							onClick={updatePost}
+							// [이벤트 매핑] Todo 수정 버튼을 클릭하면 게시글 수정 페이지로 이동해야 합니다.
+							// onClick={매핑해주세요.}
 							style={{marginRight: 10}}
 						>
 							수정
@@ -83,9 +105,11 @@ const Post = () => {
 					<Grid item>
 						<LoadingButton
 							variant='contained'
-							onClick={deleteClick}
+							// [이벤트 매핑] Todo 삭제 버튼을 클릭하면 게시글 삭제 api가 호출됩니다.
+							// onClick={매핑해주세요.}
 							color='error'
-							loading={deleteLoading}
+							// [api 연결] Todo isLoading이 true면 버튼이 비활성화 됩니다. isDeleteLoading을 매핑해주세요.
+							// loading={매핑해주세요.}
 						>
 							삭제
 						</LoadingButton>

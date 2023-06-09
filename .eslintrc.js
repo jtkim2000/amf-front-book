@@ -11,6 +11,7 @@ module.exports = {
 		// 0 false, 1 warn, 2 error
 		'prettier/prettier': 0, //prettier 에 대한 경고 끄기
 		'for-direction': 2, // for 루프가 무한대로 실행되는 것을 방지
+		'no-unused-vars': 0,
 		'no-undef': 2,
 		'no-console': 2,
 		'no-empty': 2,
