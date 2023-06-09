@@ -32,23 +32,23 @@ const UpdatePost = () => {
 		<>
 			{title && (
 				<Formik
+					//초기값 셋팅
 					initialValues={{
 						title: title,
 						content: content,
 						submit: null,
 					}}
+					//객체 validation :title 필
 					validationSchema={Yup.object().shape({
 						title: Yup.string()
 							.max(255)
 							.required('제목은 필수입니다.'),
 					})}
-					onSubmit={async (values, {setStatus, setSubmitting}) => {
-						setStatus({success: false});
+					onSubmit={async (values, { setSubmitting}) => {
 						setSubmitting(true);
 
 						await updatePost({id}, values);
 
-						setStatus({success: true});
 						setSubmitting(false);
 
 						enqueueSnackbar('게시글을 수정하였습니다.', {

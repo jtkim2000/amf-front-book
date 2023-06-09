@@ -8,22 +8,22 @@ const Board = () => {
 	const navigate = useNavigate();
 
 	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setLoading] = useState(false);
 
 	useEffect(async () => {
-		await setIsLoading(true);
+		await setLoading(true);
 		const response = await getPostList();
 		await setData(response);
-		await setIsLoading(false);
+		await setLoading(false);
 	}, []);
 
-	const createPost = () => {
+	const moveCreatePostPage = () => {
 		navigate(`/post/write`);
 	};
 
 	const rowClick = useCallback((e, row) => {
 		const postId = row.id;
-		navigate(`/post/${postId}`);
+		navigate('/post' + postId );
 	}, []);
 
 	return (
@@ -35,7 +35,7 @@ const Board = () => {
 				spacing={2}
 			>
 				<Grid item>
-					<Button variant='contained' onClick={createPost}>
+					<Button variant='contained' onClick={moveCreatePostPage}>
 						글쓰기
 					</Button>
 				</Grid>

@@ -39,13 +39,11 @@ const CreatePost = () => {
 				validationSchema={Yup.object().shape({
 					title: Yup.string().max(255).required('제목은 필수입니다.'),
 				})}
-				onSubmit={async (values, {setStatus, setSubmitting}) => {
-					setStatus({success: false});
+				onSubmit={async (values, { setSubmitting}) => {
 					setSubmitting(true);
 
 					await createPost(values);
 
-					setStatus({success: true});
 					setSubmitting(false);
 
 					enqueueSnackbar('게시글을 등록하였습니다.', {

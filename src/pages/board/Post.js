@@ -36,12 +36,18 @@ const Post = () => {
 	};
 
 	const deleteClick = async () => {
-		setDeleteLoading(true);
-		await deletePost({id});
-		enqueueSnackbar('문의가 삭제되었습니다.', {variant: 'success'});
-		setDeleteLoading(false);
+		try{
+			setDeleteLoading(true);
+			await deletePost({id});
+			enqueueSnackbar('게시글이 삭제되었습니다.', {variant: 'success'});
+			setDeleteLoading(false);
 
-		goBackList();
+			goBackList();
+		}catch(err){
+			enqueueSnackbar(err, {variant: 'error'});
+			setDeleteLoading(false);
+		}
+
 	};
 
 	const updatePost = async () => {
