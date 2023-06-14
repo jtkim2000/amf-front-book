@@ -34,12 +34,17 @@ const Post = () => {
 	const [post, setPost] = useState(null);
 	// isDeleteLoading을 state로 선언해주세요.
 
-	useEffect(async () => {
+	useEffect(() => {
+		// [api 연결] Todo: 로딩 시 게시글 상세 api 호출 함수 실행
+		// 작성해주세요.
+	}, [id]);
+
+	const findPost = async () =>{
 		// [api 연결] Todo: 게시글 상세 api 호출 후 결과 받기
 		// 작성해주세요.
 		// [api 연결] Todo: post에 api 호출 결과값 매핑
 		// 작성해주세요.
-	}, [id]);
+	}
 
 	const goBackList = () => {
 		// [이벤트 매핑] Todo: 게시판 페이지로 이동
@@ -80,7 +85,7 @@ const Post = () => {
 
 	return (
 		<>
-			<Stack container direction='row' spacing={2}>
+			<Stack direction='row' spacing={2}>
 				<Grid container>
 					<Grid item>
 						<Button
@@ -141,7 +146,6 @@ const Post = () => {
 								</Grid>
 								<Typography
 									variant='body1'
-									minRows={5}
 									aria-label='maximum height'
 									placeholder='내용'
 								>

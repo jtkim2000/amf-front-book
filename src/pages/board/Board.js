@@ -13,7 +13,12 @@ const Board = () => {
 	const [isLoading, setLoading] = useState(false);
 
 	//
-	useEffect(async () => {
+	useEffect(() =>{
+		// [api 연결] 로딩 시 게시글 리스트 api 호출 함수 실행
+		findPostList();
+	}, []);
+
+	const findPostList = async () =>{
 		// [api 연결] isLoading의 상태값 변경(로딩중이면 true, 아니면 false)
 		setLoading(true);
 
@@ -24,7 +29,7 @@ const Board = () => {
 		// 작성해주세요.
 
 		setLoading(false);
-	}, []);
+	}
 
 	const moveCreatePostPage = () => {
 		// [이벤트 매핑] Todo: 글쓰기 페이지로 이동(/post/write)

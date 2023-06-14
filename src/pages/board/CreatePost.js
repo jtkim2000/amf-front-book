@@ -104,7 +104,6 @@ const CreatePost = () => {
 										id='content'
 										name='content'
 										minRows={5}
-										fullWidth
 										aria-label='maximum height'
 										placeholder='내용을 입력하세요'
 										value={values.content}
@@ -124,7 +123,6 @@ const CreatePost = () => {
 							<Grid
 								container
 								justifyContent='flex-end'
-								xs={12}
 								style={{marginTop: 10}}
 								spacing={2}
 							>
