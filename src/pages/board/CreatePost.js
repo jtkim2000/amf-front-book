@@ -12,21 +12,21 @@ import {Formik} from 'formik';
 import {createPost} from 'api/board';
 import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
-import {useSelector} from "react-redux";
+import {useSelector} from 'react-redux';
 
 const CreatePost = () => {
 	// [api 연결] useSnackbar에서 enqueueSnackbar 가져오기
 	const {enqueueSnackbar} = useSnackbar();
 
-	// [이벤트 매핑] Todo useNavigate에서 navigate 가져오기
+	// [이벤트 매핑] Todo: useNavigate에서 navigate 가져오기
 	// 작성해주세요.
 
 	// [이벤트 매핑] store에서 user State 가져오기
 	const user = useSelector((state) => state.user);
-	const { id, name } = user;
+	const {id, name} = user;
 
 	const goBackList = () => {
-		// [이벤트 매핑] Todo 게시판 페이지로 이동(/board)
+		// [이벤트 매핑] Todo: 게시판 페이지로 이동(/board)
 		// 작성해주세요.
 	};
 
@@ -47,29 +47,31 @@ const CreatePost = () => {
 					// [이벤트 매핑] title validation : string 타입, 최대 255자, 필수(작성 안하면 '제목은 필수입니다.')
 					title: Yup.string().max(255).required('제목은 필수입니다.'),
 				})}
-				onSubmit={async (values, { setSubmitting}) => {
+				onSubmit={async (values, {setSubmitting}) => {
 					// [api 연결] 중복 방지를 위해 isSubmitting 상태 변경
 					setSubmitting(true);
-					// [api 연결] Todo 게시글 작성 api 호출
+					// [api 연결] Todo: 게시글 작성 api 호출
 					// 작성해주세요
 
 					setSubmitting(false);
 
 					// [api 연결]  snackbar를 이용해 api 호출 결과 피드백
-					enqueueSnackbar('게시글을 등록하였습니다.', { variant: 'success' });
-					// [이벤트 매핑] Todo 게시판 페이지로 이동
+					enqueueSnackbar('게시글을 등록하였습니다.', {
+						variant: 'success',
+					});
+					// [이벤트 매핑] Todo: 게시판 페이지로 이동
 					// 작성해주세요.
 				}}
 			>
 				{({
-					  errors,
-					  handleBlur,
-					  handleChange,
-					  handleSubmit,
-					  isSubmitting,
-					  touched,
-					  values,
-				  }) => (
+					errors,
+					handleBlur,
+					handleChange,
+					handleSubmit,
+					isSubmitting,
+					touched,
+					values,
+				}) => (
 					<form noValidate onSubmit={handleSubmit}>
 						<Grid container spacing={3}>
 							<Grid item xs={24} md={12}>
