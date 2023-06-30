@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {deletePost, getPost} from 'api/board';
+import {deleteBook, getBook} from 'api/booklist';
 import {
 	Box,
 	Button,
@@ -17,68 +17,76 @@ import {
 import {LoadingButton} from '@mui/lab';
 import {useSnackbar} from 'notistack';
 
-const Post = () => {
+const Book = () => {
 	// [api 연결] useSnackbar에서 enqueueSnackbar 가져오기
 	const {enqueueSnackbar} = useSnackbar();
 
 	// [이벤트 매핑] useNavigate에서 navigate 가져오기
 	const navigate = useNavigate();
-	// [api 연결] Todo: useSnackbar에서 enqueueSnackbar 가져오기
-	// 작성해주세요.
 
 	//url에서 param 가져오기
 	const {id} = useParams();
 
-	// [api 연결] Todo: post(기본값 : null), isDeleteLoading(기본값 : false)을 컴포넌트 State로 선언(useState)
+	// [api 연결] Todo: book(기본값 : null), isDeleteLoading(기본값 : false)을 컴포넌트 State로 선언(useState)
 	// 작성해주세요.
-	const [post, setPost] = useState(null);
+	const [book, setBook] = useState(null);
 	// isDeleteLoading을 state로 선언해주세요.
+	const [isDeleteLoading, setDeleteLoading] = useState(false);
 
 	useEffect(() => {
-		// [api 연결] Todo: 로딩 시 게시글 상세 api 호출 함수 실행
+		// [api 연결] Todo: 로딩 시 도서 상세 api 호출 함수 실행
 		// 작성해주세요.
+		findBook();
 	}, [id]);
 
-	const findPost = async () =>{
-		// [api 연결] Todo: 게시글 상세 api 호출 후 결과 받기
+	const findBook = async () => {
+		// [api 연결] Todo: 도서 상세 api 호출 후 결과 받기
 		// 작성해주세요.
-		// [api 연결] Todo: post에 api 호출 결과값 매핑
+		const response = await getBook({id});
+		// [api 연결] Todo: book에 api 호출 결과값 매핑
 		// 작성해주세요.
-	}
+		setBook(response);
+	};
 
 	const goBackList = () => {
-		// [이벤트 매핑] Todo: 게시판 페이지로 이동
-		// 작성해주세요.
+		// [이벤트 매핑] Todo: 도서목록 페이지로 이동
+		navigate('/booklist');
 	};
 
 	const deleteClick = async () => {
 		try {
 			// [api 연결] Todo: 중복 api 호출 방지를 위해 isDeleteLoading 상태 true로 변경
 			// 작성해주세요.
+			setDeleteLoading(true);
 
-			// [api 연결] Todo: 게시글 삭제 api 호출
+			// [api 연결] Todo: 도서 삭제 api 호출
 			// 작성해주세요.
+			await deleteBook({id});
 
-			enqueueSnackbar('게시글이 삭제되었습니다.', {variant: 'success'});
+			enqueueSnackbar('도서이 삭제되었습니다.', {variant: 'success'});
 
 			// [api 연결] Todo: 중복 api 호출 후 delete 버튼 활성화를 위해 isDeleteLoading false로 변경
-			// 작성해주세요.
+			setDeleteLoading(false);
 
-			// [이벤트 매핑] Todo: 게시판 페이지로 이동
+			// [이벤트 매핑] Todo: 도서목록 페이지로 이동
 			// 작성해주세요.
+			goBackList();
 		} catch (err) {
 			enqueueSnackbar(err, {variant: 'error'});
 			// [api 연결] Todo: 중복 api 호출 후 delete 버튼 활성화를 위해 isDeleteLoading false로 변경
+			setDeleteLoading(false);
 		}
 	};
 
-	const updatePost = async () => {
-		// [이벤트 매핑] 게시글 수정 페이지로 이동. 상태 값을 같이 전달
-		navigate(`/post/update`, {
+	const updateBook = async () => {
+		// [이벤트 매핑] 도서 수정 페이지로 이동. 상태 값을 같이 전달
+		navigate(`/book/update`, {
 			state: {
 				id: id,
-				title: post.title,
-				content: post.content,
+				title: book.title,
+				content: book.content,
+				category: book.category,
+				rentStatus: book.rentStatus,
 			},
 		});
 	};
@@ -90,8 +98,8 @@ const Post = () => {
 					<Grid item>
 						<Button
 							variant='contained'
-							// [이벤트 매핑] Todo: 목록 버튼을 클릭하면 게시글 목록페이지 페이지로 이동해야 합니다.
-							// onClick={매핑해주세요.}
+							// [이벤트 매핑] Todo: 목록 버튼을 클릭하면 도서 목록페이지 페이지로 이동해야 합니다.
+							onClick={goBackList}
 						>
 							목록
 						</Button>
@@ -101,8 +109,8 @@ const Post = () => {
 					<Grid item>
 						<Button
 							variant='outlined'
-							// [이벤트 매핑] Todo: 수정 버튼을 클릭하면 게시글 수정 페이지로 이동해야 합니다.
-							// onClick={매핑해주세요.}
+							// [이벤트 매핑] Todo: 수정 버튼을 클릭하면 도서 수정 페이지로 이동해야 합니다.
+							onClick={updateBook}
 							style={{marginRight: 10}}
 						>
 							수정
@@ -111,11 +119,11 @@ const Post = () => {
 					<Grid item>
 						<LoadingButton
 							variant='contained'
-							// [이벤트 매핑] Todo: 삭제 버튼을 클릭하면 게시글 삭제 api가 호출됩니다.
-							// onClick={매핑해주세요.}
+							// [이벤트 매핑] Todo: 삭제 버튼을 클릭하면 도서 삭제 api가 호출됩니다.
+							onClick={deleteClick}
 							color='error'
 							// [api 연결] Todo: isLoading이 true면 버튼이 비활성화 됩니다. isDeleteLoading을 매핑해주세요.
-							// loading={매핑해주세요.}
+							loading={isDeleteLoading}
 						>
 							삭제
 						</LoadingButton>
@@ -130,26 +138,40 @@ const Post = () => {
 						id='tableTitle'
 						component='div'
 					>
-						{post?.title ? post.title : ''}
+						{book?.title ? book.title : ''}
 					</Typography>
 				</Toolbar>
 				<Divider />
 				<CardContent>
-					{post ? (
+					{book ? (
 						<Grid item xs={12}>
 							<Stack spacing={1}>
 								<Grid container justifyContent='flex-end'>
 									<InputLabel htmlFor='desc-signup'>
-										{'작성자 : '}
-										{post.author}
+										{'제공자 : '}
+										{book.author}
 									</InputLabel>
 								</Grid>
 								<Typography
 									variant='body1'
 									aria-label='maximum height'
-									placeholder='내용'
+									placeholder='주요내용'
 								>
-									{post.content}
+									{book.content}
+								</Typography>
+								<Typography
+									variant='body1'
+									aria-label='maximum height'
+									placeholder='카테고리'
+								>
+									{book.category}
+								</Typography>
+								<Typography
+									variant='body1'
+									aria-label='maximum height'
+									placeholder='대여상태'
+								>
+									{book.rentStatus}
 								</Typography>
 							</Stack>
 						</Grid>
@@ -167,4 +189,4 @@ const Post = () => {
 	);
 };
 
-export default Post;
+export default Book;

@@ -9,25 +9,27 @@ import {
 	TextField,
 } from '@mui/material';
 import {Formik} from 'formik';
-import {createPost} from 'api/board';
+import {createBook} from 'api/booklist';
 import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
 import {useSelector} from 'react-redux';
 
-const CreatePost = () => {
+const CreateBook = () => {
 	// [api 연결] useSnackbar에서 enqueueSnackbar 가져오기
 	const {enqueueSnackbar} = useSnackbar();
 
 	// [이벤트 매핑] Todo: useNavigate에서 navigate 가져오기
 	// 작성해주세요.
+	const navigate = useNavigate();
 
 	// [이벤트 매핑] store에서 user State 가져오기
 	const user = useSelector((state) => state.user);
 	const {id, name} = user;
 
 	const goBackList = () => {
-		// [이벤트 매핑] Todo: 게시판 페이지로 이동(/board)
+		// [이벤트 매핑] Todo: 도서목록 페이지로 이동(/booklist)
 		// 작성해주세요.
+		navigate('/booklist');
 	};
 
 	return (
@@ -36,6 +38,8 @@ const CreatePost = () => {
 				initialValues={{
 					title: '',
 					content: '',
+					category: '',
+					rentStatus: '',
 					author: {
 						// [이벤트 매핑] user 정보 입력
 						authorId: id,
@@ -44,23 +48,27 @@ const CreatePost = () => {
 					submit: null,
 				}}
 				validationSchema={Yup.object().shape({
-					// [이벤트 매핑] title validation : string 타입, 최대 255자, 필수(작성 안하면 '제목은 필수입니다.')
-					title: Yup.string().max(255).required('제목은 필수입니다.'),
+					// [이벤트 매핑] title validation : string 타입, 최대 255자, 필수(작성 안하면 '도서명은 필수입니다.')
+					title: Yup.string()
+						.max(255)
+						.required('도서명은 필수입니다.'),
 				})}
 				onSubmit={async (values, {setSubmitting}) => {
 					// [api 연결] 중복 방지를 위해 isSubmitting 상태 변경
 					setSubmitting(true);
-					// [api 연결] Todo: 게시글 작성 api 호출
+					// [api 연결] Todo: 도서 등록 api 호출
 					// 작성해주세요
+					await createBook(values);
 
 					setSubmitting(false);
 
 					// [api 연결]  snackbar를 이용해 api 호출 결과 피드백
-					enqueueSnackbar('게시글을 등록하였습니다.', {
+					enqueueSnackbar('도서를 등록하였습니다.', {
 						variant: 'success',
 					});
-					// [이벤트 매핑] Todo: 게시판 페이지로 이동
+					// [이벤트 매핑] Todo: 도서목록 페이지로 이동
 					// 작성해주세요.
+					goBackList();
 				}}
 			>
 				{({
@@ -85,7 +93,7 @@ const CreatePost = () => {
 										value={values.title}
 										name='title'
 										onChange={handleChange}
-										placeholder='제목을 입력하세요'
+										placeholder='도서명을 입력하세요'
 										style={{backgroundColor: 'white'}}
 									/>
 									{touched.title && errors.title && (
@@ -98,15 +106,45 @@ const CreatePost = () => {
 									)}
 								</Stack>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item xs={6}>
 								<Stack spacing={1}>
 									<TextareaAutosize
 										id='content'
 										name='content'
 										minRows={5}
 										aria-label='maximum height'
-										placeholder='내용을 입력하세요'
+										placeholder='주요내용을 입력하세요'
 										value={values.content}
+										style={customStyle}
+										onBlur={handleBlur}
+										onChange={handleChange}
+									/>
+								</Stack>
+							</Grid>
+							<Grid item xs={6}>
+								<Stack spacing={1}>
+									<TextareaAutosize
+										id='category'
+										name='category'
+										minRows={5}
+										aria-label='maximum height'
+										placeholder='카테고리(인문,기술,기타)를 입력하세요'
+										value={values.category}
+										style={customStyle}
+										onBlur={handleBlur}
+										onChange={handleChange}
+									/>
+								</Stack>
+							</Grid>
+							<Grid item xs={6}>
+								<Stack spacing={1}>
+									<TextareaAutosize
+										id='rentStatus'
+										name='rentStatus'
+										minRows={5}
+										aria-label='maximum height'
+										placeholder='대여상태 자동설정(대여가능,대여불가)'
+										value={values.rentStatus}
 										style={customStyle}
 										onBlur={handleBlur}
 										onChange={handleChange}
@@ -144,7 +182,7 @@ const CreatePost = () => {
 										disableElevation
 										size='large'
 										variant='contained'
-										// [이벤트 매핑] 클릭시 게시판 페이지로 돌아가는 함수 매핑
+										// [이벤트 매핑] 클릭시 도서목록 페이지로 돌아가는 함수 매핑
 										onClick={goBackList}
 										color='error'
 									>
@@ -160,7 +198,7 @@ const CreatePost = () => {
 	);
 };
 
-export default CreatePost;
+export default CreateBook;
 
 const customStyle = {
 	padding: '10.5px 14px 10.5px 12px',

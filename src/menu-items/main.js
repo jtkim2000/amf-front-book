@@ -25,6 +25,19 @@ const main = {
 			// 		url: '메뉴랑 매핑할 url',
 			// 	},
 			// ],
+
+			id: 'booklist',
+			title: '도서',
+			type: 'collapse',
+			icon: icons.CommentOutlined,
+			children: [
+				{
+					id: 'my-booklist',
+					title: '도서목록',
+					type: 'item',
+					url: '/booklist',
+				},
+			],
 		},
 	],
 };

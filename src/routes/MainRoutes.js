@@ -7,15 +7,17 @@ import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 const DefaultPage = Loadable(lazy(() => import('pages/DefaultPage')));
 
-// [1 게시판] 게시판(Board) 페이지 컴포넌트 등록
-const Board = Loadable(lazy(() => import('pages/board/Board')));
-// [2 게시글 작성] Todo: 게시글 작성(CreatePost) 페이지 컴포넌트 등록
+// [1 도서목록] 도서목록(Booklist) 페이지 컴포넌트 등록
+const Booklist = Loadable(lazy(() => import('pages/booklist/Booklist')));
+// [2 도서 등록] Todo: 도서 등록(CreateBook) 페이지 컴포넌트 등록
 // 작성해주세요.
-// [3 게시글 상세] Todo: 게시글 상세(Post) 페이지 컴포넌트 등록
+const CreateBook = Loadable(lazy(() => import('pages/booklist/CreateBook')));
+// [3 도서 상세] Todo: 도서 상세(Book) 페이지 컴포넌트 등록
 // 작성해주세요.
-// [4 게시판 수정] Todo: 게시판 수정(UpdatePost) 페이지 컴포넌트 등록
+const Book = Loadable(lazy(() => import('pages/booklist/Book')));
+// [4 도서목록 수정] Todo: 도서목록 수정(UpdateBook) 페이지 컴포넌트 등록
 // 작성해주세요.
-
+const UpdateBook = Loadable(lazy(() => import('pages/booklist/UpdateBook')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -26,22 +28,31 @@ const MainRoutes = {
 			path: '',
 			element: <DefaultPage />,
 		},
-		// [1 게시판] 게시판(Board) 페이지 라우팅
+		// [1 도서목록] 도서목록(Booklist) 페이지 라우팅
 		{
-			path: 'board',
-			element: <Board />,
+			path: 'booklist',
+			element: <Booklist />,
 		},
 
-		// [2 게시글 작성] Todo: 게시글 작성(CreatePost) 페이지 라우팅('post/write')
+		// [2 도서 등록] Todo: 도서 등록(CreateBook) 페이지 라우팅('book/write')
 		// 작성해주세요.
-
-		// [3 게시글 상세] 게시글 상세(Post) 페이지 라우팅
 		{
-			path: 'post/:id',
+			path: 'book/write',
+			element: <CreateBook />,
+		},
+		// [3 도서 상세] 도서 상세(Book) 페이지 라우팅
+		{
+			path: 'book/:id',
 			//엘리먼트 매핑해주세요.
+			element: <Book />,
 		},
-		// [4 게시글 수정] Todo: 게시글 수정(UpdatePost) 페이지 라우팅('post/update')
+		// [4 도서 수정] Todo: 도서 수정(UpdateBook) 페이지 라우팅('book/update')
 		// 작성해주세요.
+		{
+			path: 'book/update',
+			//엘리먼트 매핑해주세요.
+			element: <UpdateBook />,
+		},
 	],
 };
 
